@@ -2,10 +2,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/lib/store";
-import { useLanguage } from '@/components/context/LanguageContext'
 
 export default function BasketBar({cur}: any) {
-  const { t } = useLanguage();
   const { totalItems, totalPrice} = useSelector((state: RootState) => state.cart);
   return (
     <>
@@ -19,7 +17,7 @@ export default function BasketBar({cur}: any) {
             }
           }
         >
-          <h1 className="text-nowrap font-niradei ">{t.viewOrder}</h1>
+          <h1 className="text-nowrap font-dangrek ">មើលម៉ឺនុយដែលអ្នកបានកម្ម៉ង់</h1>
           <div className="max-[450px]:text-[18px] max-[415px]:text-[15px] flex items-center gap-x-3 text-xl">
             <span>{totalItems !== 0 ? `${totalPrice.toFixed(2)}${cur}` : `0.00 ${cur}`}</span>
             <p className="w-8 h-8 flex justify-center items-center bg-white text-orange rounded-full">

@@ -1,15 +1,16 @@
 "use client";
-import { ImageSlider, NotFound, SearchBar } from "@/components/";
-import { Cart, Footer, Loading, PageNotFound, NavBar } from "@/components/core";
+import { ImageSlider, Model, NotFound, SearchBar } from "@/components/";
+import { Cart, BasketBar, Footer, Loading, PageNotFound, NavBar } from "@/components/core";
 import { useState, useEffect, useRef, useCallback } from "react";
 import axios from "axios";
+import OrderItem from "@/components/OrderItem";
 import { Provider } from "react-redux";
 import store from "@/lib/store";
 import { MenuType } from "@/types/model";
 import { useParams } from "next/navigation";
 
 export default function Home( ) {
-
+  
   const { projectName } = useParams();
   const project = Array.isArray(projectName) ? projectName[0] : projectName;
   const [loading, setLoading] = useState(true); // Loading state
@@ -18,9 +19,9 @@ export default function Home( ) {
   const [searchQuery, setSearchQuery] = useState(""); // State for search query
   const [data, setData] = useState<MenuType>([]); // State for fetched data
   const [filteredMenu, setFilteredMenu] = useState<MenuType>([]); // State for filtered menu items
-  const isOrderPage = false; // Flag for order page
+  const isOrderPage = true; // Flag for order page
   const [images, setImages] = useState<any[]>([])
-  const [isNotFound, setNotFound] = useState(false)
+  const [isNotFound, setNotFound] = useState(false);
   const [cur, setCur] = useState(null);
 
 
@@ -104,12 +105,12 @@ export default function Home( ) {
     <PageNotFound error="404 Page Not Found"/>
     </>
   }
- 
- 
+
+
  
   // Render loading indicator while fetching data
   if (loading) {
-    return <Loading className="h-screen fixed w-full z-100 bg-white top-0 flex justify-center items-center left-0" />;
+    return <Loading className="h-screen fixed w-full z-100 bg-white top-0 flex justify-center items-center  left-0" />;
   }
 
   // Render the main content once data is loaded
@@ -135,12 +136,12 @@ export default function Home( ) {
           <SearchBar query={searchQuery} onSearch={handleSearchInput} />
         </div>
 
-      <main className=" pb-[200px] pb-[200px]  fixed top-3 h-full w-full mt-40 max-[600px]:mt-36  max-w-[575px] overflow-scroll">
+      <main className=" pb-[200px] fixed top-3 h-full w-full mt-40 max-[600px]:mt-36  max-w-[575px] overflow-scroll">
         {/* Navigation and search bar */}
        
 
         {/* Main content section */}
-        <section className="px-3 mt-5 ">
+        <section className="px-3 mt-5   ">
           {/* Display image slider when no search query */}
           {searchQuery.trim().length <= 0 && <ImageSlider images={images} />}
 
@@ -184,11 +185,40 @@ export default function Home( ) {
 
         {/* Bottom action bar */}
         <div className="fixed bottom-0 p-3 max-w-[575px] items-center w-full cursor-pointer rounded-t-xl bg-white flex justify-between">
-        
+          {/* Display order item component */}
+          <OrderItem cur={cur} />
+          {/* Basket bar component */}
+          <BasketBar cur={cur} />
+
+          {/* Button to trigger modal */}
+          <button
+            onClick={async () => {
+              try {
+                (document.getElementById(
+                  "my_modal_10"
+                ) as HTMLDialogElement).showModal();
+                // await axios.post(""); // Placeholder post request
+              } catch (error) {
+                console.error("Error posting data:", error);
+              }
+            }}
+            className="bg-gray-200 w-14 h-14 flex justify-center items-center rounded-full border-orange-600 border-2"
+          >
+            {/* Image icon */}
+            <img
+              className="w-10 h-10 max-[450px]:w-8"
+              src={"/icons/service-bell.svg"}
+              alt=""
+              width={100}
+              height={100}
+            />
+          </button>
+          {/* Model component */}
+          <Model />
         </div>
 
         {/* Footer section */}
-        <footer className="mt-16 pb-[100px]">
+        <footer className="mt-16 pb-[140px]">
           {/* Display not found message when no items */}
           {filteredMenu.length <= 0 && <NotFound />}
           <Footer />

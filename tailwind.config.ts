@@ -7,7 +7,7 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-  
+
     extend: {
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
@@ -30,5 +30,4 @@ const config: Config = {
     themeRoot: ":root", // The element that receives theme color CSS variables
   },
 };
-
 export default config;

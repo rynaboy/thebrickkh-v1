@@ -8,7 +8,7 @@
 
 @font-face {
   font-family: 'Battambang-Regular';
-  src: url("/fonts/DMSans-SemiBold.ttf") format("truetype");
+  src: url("/fonts/Battambang-Regular.ttf") format("truetype");
 }
   
 @font-face {
@@ -21,8 +21,4 @@
   src: url("/fonts/SF-Pro-Display-Medium.otf") format("truetype");
 }
   
-@font-face {
-  font-family: 'Nireadei';
-  src: url("/fonts/DMSans-Regular.ttf") format("truetype");
-}
 
