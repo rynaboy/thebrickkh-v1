@@ -3,16 +3,25 @@ interface MetaDataType  {
   logoImg: string; // URL to the site's logo image
   title: string; // Title of the site
 }
-
 // Menu item data from the API
 interface Menu {
+  category_id :string
   id: string; // Unique identifier for the menu item
   name: string; // Name of the menu item
   imagePath: string; // Path to the image of the menu item
   price: number; // Regular price of the menu item
-  promo_price: number; // Promotional price of the menu item
+  promo_price: number | null; // Promotional price of the menu item
   code: number; // Code associated with the menu item
   type: string; // Type/category of the menu item
+  quantity : string;
+  age : string;
+  imageDetail :string[],
+  pieces : number,
+  description :string,
+  created_at : Date,
+  tag?: string;
+  category_name?: string; 
+  status : string;
 }
 
 // Category containing a list of menu items
@@ -21,6 +30,10 @@ interface Category {
   items: Menu[]; // Array of menu items in this category
 }
 
+interface CategoryData {
+  id : string
+  category: string; // Name of the category
+}
 // Array of categories, each containing a list of menu items
 type MenuType = Category[];
 
@@ -71,4 +84,4 @@ interface orderHistoryType {
   items: orderHistory[]; // Array of items in the order
 }
 
-export type { MetaDataType, Menu, MenuType, Category, CartItem, CartState, orderHistory, orderHistoryType };
+export type { MetaDataType, Menu, MenuType, Category, CartItem, CartState, orderHistory, orderHistoryType ,CategoryData};

@@ -1,32 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { useLanguage } from "@/components/context/LanguageContext";
 
 export default function Footer() {
+  const { t } = useLanguage();
   return (
     <div className="flex flex-col w-full justify-center items-center gap-7 pb-5">
       {/* head */}
-      <div className="flex flex-row items-center gap-4">
-        <div className="w-16 h-[1.5px] bg-gray-400 rounded-full items-center"></div>
-        <span className="text-center font-battambong text-sm">
-          អភិវឌ្ឍ និង ផ្គត់ផ្គង់ដោយ <br />
-          Powered by
-        </span>
-        <div className="w-16 h-[1.5px] bg-gray-400 rounded-full "></div>
-      </div>
-
-      {/* Image  */}
-      <img
-        className="w-[400px] max-[420px]:w-[300px]  "
-        src="/images/TSD-logo.svg"
-        width={200}
-        height={200}
-        alt=""
-      />
       <div className="flex flex-row gap-10">
-        <Link href="https://web.facebook.com/tsdcambodia">
+        <Link href="https://www.facebook.com/share/15sbCYCqZo/?mibextid=wwXIfr">
           <svg
-            width="40"
+            width="38"
             height="39"
             viewBox="0 0 40 39"
             fill="none"
@@ -42,10 +27,78 @@ export default function Footer() {
             />
           </svg>
         </Link>
-        
+
+        <Link href=" https://www.instagram.com/thebrickkhlego?igsh=dTM3dG0wYzN2cWNo&utm_source=qr">
+          <Image
+            className="w-[45px] h-[45px]"
+            src="/icons/instagram.svg"
+            alt=""
+            width={200}
+            height={200}
+          />
+        </Link>
+
+        <Link href="https://www.tiktok.com/@thebrickkhlego?_t=ZS-8zG7j5dI4CQ&_r=1">
+         <Image
+            className="w-[40px] h-[39px]"
+            src="/icons/tiktok.svg"
+            alt=""
+            width={200}
+            height={200}
+          />
+        </Link>
+
+        <Link href="https://maps.app.goo.gl/aMhENtP419sxh4Cw6?g_st=com.google.maps.preview.copy">
+          <Image
+            className="w-[40px] h-[39px]"
+            src="/icons/map.svg"
+            alt=""
+            width={200}
+            height={200}
+          />
+        </Link>
+      </div>
+      <div className="flex flex-row items-center gap-4">
+        <div className="w-16 h-[1.5px] bg-gray-400 rounded-full items-center"></div>
+        <span className="text-center font-battambong text-sm">
+          {t.developedBy}
+          <br />
+          Powered by
+        </span>
+        <div className="w-16 h-[1.5px] bg-gray-400 rounded-full "></div>
+      </div>
+
+      {/* Image  */}
+      <Image
+        className="w-[200px] max-[220px]:w-[200px]  "
+        src="/images/TSD-logo.svg"
+        width={200}
+        height={200}
+        alt=""
+      />
+      <div className="flex flex-row gap-10">
+        <Link href="https://web.facebook.com/tsdcambodia">
+          <svg
+            width="25"
+            height="39"
+            viewBox="0 0 40 39"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M39.6549 19.3499C39.6549 29.1225 32.413 37.2017 23.0052 38.5128C22.1255 38.6348 21.2255 38.6985 20.312 38.6985C19.2575 38.6985 18.222 38.6145 17.2136 38.4518C8.00229 36.9685 0.967773 28.9802 0.967773 19.3499C0.967773 8.66354 9.62877 0 20.3107 0C30.9925 0 39.6549 8.66354 39.6549 19.3499Z"
+              fill="#1877F2"
+            />
+            <path
+              d="M23.005 15.5359V19.751H28.2178L27.3924 25.4291H23.005V38.5112C22.1253 38.6332 21.2253 38.697 20.3118 38.697C19.2573 38.697 18.2218 38.6129 17.2134 38.4502V25.4291H12.4058V19.751H17.2134V14.5936C17.2134 11.3939 19.8062 8.79892 23.0063 8.79892V8.80163C23.0158 8.80163 23.0239 8.79892 23.0334 8.79892H28.2192V13.7096H24.8307C23.8236 13.7096 23.0063 14.5272 23.0063 15.5345L23.005 15.5359Z"
+              fill="white"
+            />
+          </svg>
+        </Link>
+
         <Link href="https://t.me/TSDSolution">
           <svg
-            width="40"
+            width="25"
             height="39"
             viewBox="0 0 40 39"
             fill="none"
@@ -63,8 +116,8 @@ export default function Footer() {
         </Link>
 
         <Link href="https://maps.app.goo.gl/66XQRmiegjXoYrwcA">
-          <img
-            className="w-[40px] h-[39px]"
+          <Image
+            className="w-[25px] h-[39px]"
             src="/icons/map.svg"
             alt=""
             width={200}

@@ -6,10 +6,10 @@ import { orderHistory } from '@/types/model';
 
 type PropsType = {
     cartItem: orderHistory;
-    cur?:any
+    cur?:any;
 };
 
-export default function HistoryOrder({ cartItem , cur}: PropsType) {
+export default function HistoryOrder({ cartItem , cur = false}: PropsType) {
     const { projectName, tableNumber } = useParams();
     const { name, price, id , imagePath, quantity, promo_price,  } = cartItem;
     // Format prices
@@ -17,7 +17,7 @@ export default function HistoryOrder({ cartItem , cur}: PropsType) {
     const actual_price = numeral(price).format('0.00');
     const qty = numeral(quantity).format('0')
     // Construct image URL
-    const imgUrl = `https://${projectName}.tsdsolution.net/assets/uploads/`;
+    const imgUrl = `https://${projectName}.tsdsolution.net/assets/uploads/${imagePath}`;
 
     return (
         <>
@@ -26,13 +26,13 @@ export default function HistoryOrder({ cartItem , cur}: PropsType) {
                 <div className='flex flex-row items-center space-x-4'>
                     {/* Image */}
                     <div className='h-[62px] w-[62px] rounded-lg overflow-hidden'>
-                        <img src={`${imgUrl}/${imagePath}`} alt="" width={1000} height={1000} className="object-cover w-full h-full" />
+                        <Image src={`${imgUrl}`} alt="" width={1000} height={1000} className="object-cover w-full h-full" />
                     </div>
                     {/* Item details (name, price, promo_price) */}
                     <div>
                         <p className='font-battambong text-sm'>{name}</p>
                         <div className="space-x-3">
-                            <span className='text-orange-600 font-bold'>{cur}{promo_price ? real_price : actual_price}</span>
+                            <span className='text-yellow-400 font-bold'>{cur}{promo_price ? real_price : actual_price}</span>
                             {
                                 promo_price && promo_price != price ? <span className="line-through">${ actual_price}</span> : (<></>)
                             }
