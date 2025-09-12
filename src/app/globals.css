@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Khmer&display=swap');
+
 @import 'swiper/css';
 @import 'swiper/css/pagination';
 @import 'swiper/css/navigation';
@@ -49,7 +51,8 @@ html{
 }
 
 .font-niradei{
-    font-family: "Nireadei";
+    /* font-family: "Nireadei"; */
+    font-family: "DM Sans", sans-serif;
 }
 
 
