@@ -18,9 +18,12 @@ input[type="text"], input[type="search"] {
     font-size: 13px;
   }
 }
-
+*{
+    color: black;
+}
 html{
     scroll-behavior: smooth;
+    color: black;
 }
 .bg-whisper{
     background-color: #F4F4F7;
