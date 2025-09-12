@@ -18,9 +18,9 @@ export default function InforCard({ children, title, logo}: propTypes) {
   const {projectName} = useParams()
   const { t } = useLanguage();
 
-  const heroImgUrl = `https://${projectName}.tsdsolution.net/assets/uploads/logos/${info?.hero}`;
+  const heroImgUrl = projectName && info?.hero ? `https://${projectName}.tsdsolution.net/assets/uploads/logos/${info.hero}` : '/images/placeholder-hero.png';
 
-  const logoImgUrl = `https://${projectName}.tsdsolution.net/assets/uploads/logos/${logo}`;
+  const logoImgUrl = projectName && logo ? `https://${projectName}.tsdsolution.net/assets/uploads/logos/${logo}` : '/images/placeholder-logo.png';
 
   
   useEffect(() => {
@@ -35,7 +35,7 @@ export default function InforCard({ children, title, logo}: propTypes) {
       }
     };
     fetchData();
-  });
+  }, [projectName]);
   return (
     <>
       {/* You can open the modal using document.getElementById('ID').showModal() method */}

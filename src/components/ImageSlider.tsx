@@ -19,7 +19,7 @@ type PropsType = {
 
 const ImageSlider = ({ images, fallbackImagePath,cartItem }: PropsType) => {
   const { projectName } = useParams();
-  const imgUrl = `https://${projectName}.tsdsolution.net/assets/uploads/`;
+  const imgUrl = projectName ? `https://${projectName}.tsdsolution.net/assets/uploads/` : '';
 
   const prevRef = useRef(null);
   const nextRef = useRef(null);
@@ -71,7 +71,7 @@ const ImageSlider = ({ images, fallbackImagePath,cartItem }: PropsType) => {
         <div className="w-full rounded-xl overflow-hidden bg-white h-[350px]">
           <Image
             className="w-full h-full object-contain"
-            src={`${imgUrl}${cartItem.imagePath}`}
+            src={cartItem?.imagePath ? `${imgUrl}${cartItem.imagePath}` : '/images/placeholder.png'}
             alt=""
             width={450}
             height={350}

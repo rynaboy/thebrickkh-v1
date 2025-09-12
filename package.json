@@ -1,8 +1,8 @@
 {
-  "name": "emenu2",
+  "name": "thebrickkh-v1",
   "description": "Build a full-stack web application with Next.js.",
   "cloudflare": {
-    "label": "Next.js Framework Starter",
+    "label": "thebrickkh-v1",
     "products": [
       "Workers"
     ],
@@ -36,7 +36,7 @@
     "postcss": "8.4.49",
     "tailwindcss": "3.4.17",
     "typescript": "5.7.2",
-    "wrangler": "^3.114.14"
+    "wrangler": "^4.35.0"
   },
   "scripts": {
     "build": "next build",
