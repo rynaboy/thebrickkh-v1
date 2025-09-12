@@ -362,6 +362,7 @@ function CategoryShow() {
                         setOpenPanel(openPanel === "filter" ? null : "filter")
                       }
                       onFilterChange={handleFilterChange}
+                    resetTrigger={resetTrigger}
                     />
                     <SortBar
                       isOpen={openPanel === "sort"}
@@ -370,6 +371,7 @@ function CategoryShow() {
                       }
                       sortData={sortData}
                       onSortChange={handleSortChange}
+                      resetTrigger={resetTrigger}
                     />
                   </div>
                 <FilterInstock

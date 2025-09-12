@@ -367,12 +367,14 @@ function StaticCategory() {
                       isOpen={openPanel === "filter"}
                       onToggle={() => setOpenPanel(openPanel === "filter" ? null : "filter")}
                       onFilterChange={handleFilterChange}
+                      resetTrigger={resetTrigger}
                     />
                     <SortBar
                       isOpen={openPanel === "sort"}
                       onToggle={() => setOpenPanel(openPanel === "sort" ? null : "sort")}
                       sortData={sortData}
                       onSortChange={handleSortChange}
+                      resetTrigger={resetTrigger}
                     />
                   </div>
                 <FilterInstock
