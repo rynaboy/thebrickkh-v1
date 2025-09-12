@@ -80,7 +80,7 @@ useEffect(() => {
             isOpen ? 'text-white bg-[#343433] border-[#343433]' : 'text-[#343433] border-black'
           }`}
       >
-        <span>Fliters</span>
+      Fliters
       </button>
     </div>
 

@@ -31,7 +31,7 @@ export default function Footer() {
         <Link href=" https://www.instagram.com/thebrickkhlego?igsh=dTM3dG0wYzN2cWNo&utm_source=qr">
           <Image
             className="w-[45px] h-[45px]"
-            src="/icons/instagram.svg"
+            src="/icons/Instagram.svg"
             alt=""
             width={200}
             height={200}
@@ -79,7 +79,7 @@ export default function Footer() {
       <div className="flex flex-row gap-10">
         <Link href="https://web.facebook.com/tsdcambodia">
           <svg
-            width="25"
+            width="45"
             height="39"
             viewBox="0 0 40 39"
             fill="none"
@@ -98,7 +98,7 @@ export default function Footer() {
 
         <Link href="https://t.me/TSDSolution">
           <svg
-            width="25"
+            width="40"
             height="39"
             viewBox="0 0 40 39"
             fill="none"
@@ -117,7 +117,7 @@ export default function Footer() {
 
         <Link href="https://maps.app.goo.gl/66XQRmiegjXoYrwcA">
           <Image
-            className="w-[25px] h-[39px]"
+            className="w-[40px] h-[39px]"
             src="/icons/map.svg"
             alt=""
             width={200}
