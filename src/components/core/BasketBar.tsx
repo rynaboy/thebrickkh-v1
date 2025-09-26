@@ -19,7 +19,7 @@ export default function BasketBar({cur}: any) {
             }
           }
         >
-          <h1 className="text-nowrap font-niradei ">{t.viewOrder}</h1>
+          <h1 className="text-nowrap font-dmsans ">{t.viewOrder}</h1>
           <div className="max-[450px]:text-[18px] max-[415px]:text-[15px] flex items-center gap-x-3 text-xl">
             <span>{totalItems !== 0 ? `${totalPrice.toFixed(2)}${cur}` : `0.00 ${cur}`}</span>
             <p className="w-8 h-8 flex justify-center items-center bg-white text-orange rounded-full">

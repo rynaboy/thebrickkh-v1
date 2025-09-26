@@ -251,7 +251,7 @@ export default function SearchBar({
         <input
           ref={searchInputRef}
           type="text"
-          className={`grow font-niradei text-base sm:text-[13px] bg-transparent outline-none px-3 ${
+          className={`grow font-dmsans text-base sm:text-[13px] bg-transparent outline-none px-3 ${
             isLoading && !hasLoadedProducts
               ? "cursor-not-allowed opacity-50"
               : ""

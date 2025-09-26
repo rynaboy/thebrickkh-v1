@@ -59,7 +59,7 @@ export default function Cart({ cartItem, cur }: PropType) {
         onClick={handleClick}
       >
         {parseFloat(quantity) > 0 && (
-          <span className="absolute top-3 right-3 bg-[#fec10b] text-[#343433] font-niradei text-[11px] px-2 py-1 rounded-full shadow-sm z-10">
+          <span className="absolute top-3 right-3 bg-[#fec10b] text-[#343433] font-dmsans text-[11px] px-2 py-1 rounded-full shadow-sm z-10">
             In Stock
           </span>
         )}
@@ -79,7 +79,7 @@ export default function Cart({ cartItem, cur }: PropType) {
         <div>
           <h2 className="text-[13px] font-battambong font-bold cursor-pointer text-[#000000]" onClick={handleClick}>{code}</h2>
           <h2
-            className="text-[13px] font-niradei cursor-pointer"
+            className="text-[13px] font-dmsans cursor-pointer"
             style={{
               display: "-webkit-box",
               WebkitLineClamp: 2,
@@ -92,7 +92,7 @@ export default function Cart({ cartItem, cur }: PropType) {
         </div>
       </div>
       <div className="card-footer flex justify-between items-center px-2 pb-3 text-[12px] text-gray-700">
-        <span className="font-niradei flex items-center space-x-1">
+        <span className="font-dmsans flex items-center space-x-1">
           <svg
             viewBox="0 -9.47 97.156 97.156"
             xmlns="http://www.w3.org/2000/svg"
@@ -121,7 +121,7 @@ export default function Cart({ cartItem, cur }: PropType) {
           ${cur}
           {promo_price ? real_price : actual_price}
         </span>
-        <span className="font-niradei hidden">{age}</span>
+        <span className="font-dmsans hidden">{age}</span>
       </div>
     </div>
   );

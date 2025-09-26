@@ -42,23 +42,23 @@ html{
 }
 
 .font-dangrek{
-    /* font-family: "Dangrek-Regular"; */
     font-family: "DM Sans", sans-serif;
 
 }
 
 .font-battambong{
-    /* font-family: 'Battambang-Regular'; */
     font-family: "DM Sans", sans-serif;
 }
 
 .font-akbalthom-moul-4 {
-    /* font-family: "AKbalthom-Moul-4"; */
     font-family: "DM Sans", sans-serif;
 }
 
-.font-niradei{
-    /* font-family: "Nireadei"; */
+.font-dmsans{
+    font-family: "DM Sans", sans-serif;
+}
+
+.font-dmsans{
     font-family: "DM Sans", sans-serif;
 }
 

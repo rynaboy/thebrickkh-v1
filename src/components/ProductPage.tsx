@@ -96,7 +96,7 @@ const getButtonProps = () => {
           <div className="flex items-center">
             <button
               onClick={handleBackClick}
-              className="text-[#343433] font-niradei text-[12px] me-2 flex items-center justify-center rounded-full cursor-pointer"
+              className="text-[#343433] font-dmsans text-[12px] me-2 flex items-center justify-center rounded-full cursor-pointer"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -110,10 +110,10 @@ const getButtonProps = () => {
           </div>
 
            <div className="flex ">
-             <p className="ms-2 inline-flex text-[17px] mt-2 justify-center items-center text-[#000000] font-niradei">
+             <p className="ms-2 inline-flex text-[17px] mt-2 justify-center items-center text-[#000000] font-dmsans">
                 {category_name} /
             </p>
-             <p className="ms-1 inline-flex text-[17px] mt-2 justify-center items-center text-[#000000] font-niradei">
+             <p className="ms-1 inline-flex text-[17px] mt-2 justify-center items-center text-[#000000] font-dmsans">
                 {code}
             </p>
            </div>
@@ -126,7 +126,7 @@ const getButtonProps = () => {
           >
             <div className="relative">
               {parseFloat(quantity) > 0 && (
-                <span className="absolute top-3 left-3 bg-[#fec10b] text-[#343433] font-niradei text-[14px] px-2 py-1 rounded-full shadow-sm z-10">
+                <span className="absolute top-3 left-3 bg-[#fec10b] text-[#343433] font-dmsans text-[14px] px-2 py-1 rounded-full shadow-sm z-10">
                   In Stock
                 </span>
               )}
@@ -134,7 +134,7 @@ const getButtonProps = () => {
             </div>
             <div className="card-body p-2">
               <h2 className="text-[23px] font-battambong font-bold text-[#000000]">{code}</h2>
-              <h2 className="text-[23px] font-niradei">{name}</h2>
+              <h2 className="text-[23px] font-dmsans">{name}</h2>
               <div className="flex justify-between">
                 <div>
                   <h2 className="text-[22px] font-battambong flex font-bold text-[#000000]">
@@ -207,14 +207,14 @@ const getButtonProps = () => {
                   <h2 className="text-[22px] font-bold font-battambong text-[#000000]">{age}</h2>
                 </div>
               </div>
-              <h1 className="text-[28px] font-bold text-[#000000] font-niradei text-center">
+              <h1 className="text-[28px] font-bold text-[#000000] font-dmsans text-center">
                 {cur}
                 {promo_price ? real_price : actual_price}
               </h1>
             </div>
             <div className="card-footer flex justify-between items-center px-2 text-[13px] text-gray-700">
             <button
-                className={`inline-flex text-[18px] justify-center items-center w-full px-4 py-1 border-2 rounded-full focus:outline-none font-niradei ${bgColor} ${borderColor} ${textColor}`}
+                className={`inline-flex text-[18px] justify-center items-center w-full px-4 py-1 border-2 rounded-full focus:outline-none font-dmsans ${bgColor} ${borderColor} ${textColor}`}
               >
                 {text}
               </button>
@@ -222,14 +222,14 @@ const getButtonProps = () => {
           </div>
 
           {/* Description */}
-          <h2 className="text-[18px] font-niradei font-bold">Description</h2>
+          <h2 className="text-[18px] font-dmsans font-bold">Description</h2>
           <div className="pb-3 space-y-2">
             {description
               .split(/\s*[•]\s*/g) // split by " – " or " • " with optional spaces
               .map((part, index) => (
                 <p
                   key={index}
-                  className="text-[14px] font-niradei leading-snug"
+                  className="text-[14px] font-dmsans leading-snug"
                 >
                   - {part.trim()}
                 </p>

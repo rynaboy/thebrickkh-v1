@@ -228,7 +228,7 @@ export default function Menubar({
                   <li
                     key={`static-${item.label}`}
                     onClick={() => handleStaticItemClick(item.tag)}
-                    className={`font-niradei cursor-pointer text-nowrap max-[500px]:text-[12px] text-[13px] py-[5px] px-3 w-fit rounded-full border-yellow-400 border-2 transition-colors duration-200 ${
+                    className={`font-dmsans cursor-pointer text-nowrap max-[500px]:text-[12px] text-[13px] py-[5px] px-3 w-fit rounded-full border-yellow-400 border-2 transition-colors duration-200 ${
                       isStaticActive
                         ? "text-[#343433] bg-[#fec10b]"
                         : "text-[#343433]"
@@ -255,7 +255,7 @@ export default function Menubar({
                         }
                       }
                     }}
-                    className={`font-niradei cursor-pointer text-nowrap max-[500px]:text-[12px] text-[13px] py-[5px] px-3 w-fit rounded-full border-yellow-400 border-2 transition-colors duration-200 ${
+                    className={`font-dmsans cursor-pointer text-nowrap max-[500px]:text-[12px] text-[13px] py-[5px] px-3 w-fit rounded-full border-yellow-400 border-2 transition-colors duration-200 ${
                       isActive ? "text-[#343433] bg-[#fec10b]" : "text-[#343433]"
                     }`}
                   >
@@ -269,7 +269,7 @@ export default function Menubar({
               <button
                 onClick={toggleShowAll}
                 disabled={!isReady}
-                className={`font-niradei cursor-pointer bg-[#fec10b] max-[500px]:text-[12px] text-[#343433] text-[13px] py-[5px] px-3 w-fit rounded-full border-yellow-400 border-2 transition-all duration-200 ${
+                className={`font-dmsans cursor-pointer bg-[#fec10b] max-[500px]:text-[12px] text-[#343433] text-[13px] py-[5px] px-3 w-fit rounded-full border-yellow-400 border-2 transition-all duration-200 ${
                   !isReady ? 'opacity-50 cursor-not-allowed' : ''
                 }`}
               >

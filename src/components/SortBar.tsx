@@ -48,7 +48,7 @@ useEffect(() => {
       <div className="relative">
         <button
           onClick={onToggle}
-          className={`w-full px-4 py-1 max-[370px]:text-[13px] max-[320px]:text-[10px] text-[13px] font-niradei rounded-full border-2 focus:outline-none ${
+          className={`w-full px-4 py-1 max-[370px]:text-[13px] max-[320px]:text-[10px] text-[13px] font-dmsans rounded-full border-2 focus:outline-none ${
             isOpen ? 'text-white bg-[#343433] border-[#343433]' : 'text-[#343433] border-[#343433]'
           }`}
         >
@@ -67,7 +67,7 @@ useEffect(() => {
         >
           <div className="bg-white border rounded-lg p-4 mt-2 shadow">
             {/* Close Button */}
-             <span onClick={onToggle} className="absolute bottom-[-15px] right-[50%] translate-x-[50%] bg-[#343433] font-niradei text-[12px] p-2 rounded-full shadow-sm z-10 cursor-pointer">
+             <span onClick={onToggle} className="absolute bottom-[-15px] right-[50%] translate-x-[50%] bg-[#343433] font-dmsans text-[12px] p-2 rounded-full shadow-sm z-10 cursor-pointer">
               <svg xmlns="http://www.w3.org/2000/svg" 
               viewBox="0 0 512 512"  className="h-4 w-4" style={{ fill: '#FFFFFF' }}>
                 <path d="M233.4 105.4c12.5-12.5 32.8-12.5 45.3 0l192 192c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L256 173.3 86.6 342.6c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3l192-192z"/></svg>
@@ -85,7 +85,7 @@ useEffect(() => {
                     id={`sort-${index}`}
                   />
                   <label
-                    className="form-check-label ms-2 mt-2 font-niradei text-[14px]"
+                    className="form-check-label ms-2 mt-2 font-dmsans text-[14px]"
                     htmlFor={`sort-${index}`}
                   >
                     {label}

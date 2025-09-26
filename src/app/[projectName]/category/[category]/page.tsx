@@ -337,7 +337,7 @@ function CategoryShow() {
         <div className="flex px-3 border-b-2 mb-2">
           {isInstockOnly && (
            <button onClick={handleBackClick}
-              className="text-[#343433] font-niradei text-[12px] me-2 flex items-center justify-center rounded-full cursor-pointer"
+              className="text-[#343433] font-dmsans text-[12px] me-2 flex items-center justify-center rounded-full cursor-pointer"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -409,7 +409,7 @@ function CategoryShow() {
                     >
                       <div className="flex gap-3 justify-center items-center mb-5 mt-5">
                         <div className="w-full h-[2px] rounded-full bg-gray-300"></div>
-                        <h1 className="font-bold font-niradei text-[18px] text-nowrap max-[400px]:text-lg">
+                        <h1 className="font-bold font-dmsans text-[18px] text-nowrap max-[400px]:text-lg">
                           {filteredCategory.category}
                         </h1>
                         <div className="w-full h-[2px] rounded-full bg-gray-300"></div>

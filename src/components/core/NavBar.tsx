@@ -46,7 +46,7 @@ export default function NavBar({title, icons}: PropType) {
       <div className='flex flex-row items-center space-x-2 cursor-pointer' onClick={handleBackClick}>
       <Logo image={ `https://${projectName}.tsdsolution.net/assets/uploads/logos/${metadata?.icons}` }/>
         <div>
-          <p className='font-niradei font-bold w-30 font-akbalthom-moul-4 text-xl max-[600px]:text-sm max-[450px]:text-[14px]'>{metadata?.title}</p>
+          <p className='font-dmsans font-bold w-30 font-akbalthom-moul-4 text-xl max-[600px]:text-sm max-[450px]:text-[14px]'>{metadata?.title}</p>
         </div>
       </div>
      <Link href="https://t.me/thebrickkh">

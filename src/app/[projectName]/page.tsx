@@ -373,6 +373,9 @@ export default function Home() {
 
   return (
     <Provider store={store}>
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+          <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet"/>
       <div
         className="max-w-[575px] mx-auto overflow-auto h-screen"
         id="scroll-container"
@@ -391,7 +394,7 @@ export default function Home() {
           {isInstockOnly && (
             <button
               onClick={handleBackClick}
-              className="text-[#343433] font-niradei text-[12px] me-2 flex items-center justify-center rounded-full cursor-pointer"
+              className="text-[#343433] font-dmsans text-[12px] me-2 flex items-center justify-center rounded-full cursor-pointer"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -494,7 +497,7 @@ export default function Home() {
                           <div className="w-full h-[2px] rounded-full bg-gray-300"></div>
                           <h1
                             id={`${filteredCategory.category}`}
-                            className="font-bold font-niradei text-[18px] text-nowrap max-[400px]:text-lg"
+                            className="font-bold font-dmsans text-[18px] text-nowrap max-[400px]:text-lg"
                           >
                             {filteredCategory.category}
                           </h1>
@@ -523,7 +526,7 @@ export default function Home() {
                                   filteredCategory.category
                                 )
                               }
-                              className="font-niradei text-sm px-4 text-[13px] py-1 border border-yellow-400 bg-[#fec10b] rounded-full"
+                              className="font-dmsans text-sm px-4 text-[13px] py-1 border border-yellow-400 bg-[#fec10b] rounded-full"
                             >
                               {expandedCategories[filteredCategory.category]
                                 ? "See Less"
