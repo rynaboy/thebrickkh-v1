@@ -58,11 +58,24 @@ export default function Cart({ cartItem, cur }: PropType) {
         className="w-full rounded-xl overflow-hidden p-2 cursor-pointer flex justify-center"
         onClick={handleClick}
       >
-        {parseFloat(quantity) > 0 && (
-          <span className="absolute top-3 right-3 bg-[#fec10b] text-[#343433] font-dmsans text-[11px] px-2 py-1 rounded-full shadow-sm z-10">
-            In Stock
-          </span>
-        )}
+        {/* Stock badge: show In Stock when quantity > 0, otherwise Out of Stock */}
+        {
+          (() => {
+            const inStock = parseFloat(quantity) > 0;
+            return (
+              <span
+                className={`absolute top-3 right-3 font-dmsans text-[11px] px-2 py-1 rounded-full shadow-sm z-10 ${
+                  inStock
+                    ? "bg-[#fec10b] text-[#343433]"
+                    : "bg-gray-300 text-gray-700"
+                }`}
+                aria-live="polite"
+              >
+                {inStock ? "In Stock" : "Out of Stock"}
+              </span>
+            );
+          })()
+        }
         <Image
           className="object-contain rounded-lg
              w-[100px] h-[100px]           // default for mobile

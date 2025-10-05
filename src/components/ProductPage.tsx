@@ -62,21 +62,35 @@ const getButtonProps = () => {
         borderColor: 'border-[#F7E3AE]',
         textColor: 'text-[#000000]'
       };
-    } else if (parseFloat(quantity) === 0 || quantity === null) {
-      return {
-        text: 'Pre-order',
-        bgColor: 'bg-[#edc1cd]',
-        borderColor: 'border-[#edc1cd]',
-        textColor: 'text-[#000000]'
-      };
-    } else {
-      return {
-        text: 'In Stock',
-        bgColor: 'bg-[#fec10b]',
-        borderColor: 'border-yellow-400',
-        textColor: 'text-[#000000]'
-      };
     }
+
+    const qty = parseFloat(quantity as any);
+    // if (!isNaN(qty)) {
+      if (qty > 0) {
+        return {
+          text: 'In Stock',
+          bgColor: 'bg-[#fec10b]',
+          borderColor: 'border-yellow-400',
+          textColor: 'text-[#000000]'
+        };
+      }
+
+      // qty === 0
+      return {
+        text: 'Out of Stock',
+        bgColor: 'bg-gray-300',
+        borderColor: 'border-gray-300',
+        textColor: 'text-gray-700'
+      };
+    // }
+
+    // quantity invalid or null -> Pre-order
+    // return {
+    //   text: 'Pre-order',
+    //   bgColor: 'bg-[#edc1cd]',
+    //   borderColor: 'border-[#edc1cd]',
+    //   textColor: 'text-[#000000]'
+    // };
   };
 
   const { text, bgColor, borderColor, textColor } = getButtonProps();
@@ -125,11 +139,43 @@ const getButtonProps = () => {
             style={{ boxShadow: "rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px" }}
           >
             <div className="relative">
-              {parseFloat(quantity) > 0 && (
-                <span className="absolute top-3 left-3 bg-[#fec10b] text-[#343433] font-dmsans text-[14px] px-2 py-1 rounded-full shadow-sm z-10">
-                  In Stock
-                </span>
-              )}
+              {/* Stock badge: show In Stock when quantity > 0, Out of Stock when quantity === 0, Pre-order when quantity is null/invalid, Coming Soon when status==='transit' */}
+              {
+                (() => {
+                  // if (status === 'transit') {
+                  //   return (
+                  //     <span className="absolute top-3 left-3 bg-[#F7E3AE] text-[#000000] font-dmsans text-[14px] px-2 py-1 rounded-full shadow-sm z-10">
+                  //       Coming Soon
+                  //     </span>
+                  //   );
+                  // }
+
+                  const qty = parseFloat(quantity as any);
+                  if (!isNaN(qty)) {
+                    if (qty > 0) {
+                      return (
+                        <span className="absolute top-3 left-3 bg-[#fec10b] text-[#343433] font-dmsans text-[14px] px-2 py-1 rounded-full shadow-sm z-10">
+                          In Stock
+                        </span>
+                      );
+                    }
+
+                    // qty === 0
+                    return (
+                      <span className="absolute top-3 left-3 bg-gray-300 text-gray-700 font-dmsans text-[14px] px-2 py-1 rounded-full shadow-sm z-10">
+                        Out of Stock
+                      </span>
+                    );
+                  }
+
+                  // quantity invalid or null -> Pre-order
+                  // return (
+                  //   <span className="absolute top-3 left-3 bg-[#edc1cd] text-[#000000] font-dmsans text-[14px] px-2 py-1 rounded-full shadow-sm z-10">
+                  //     Pre-order
+                  //   </span>
+                  // );
+                })()
+              }
               <ImageSlider images={imageDetail} cartItem={cartItem} />
             </div>
             <div className="card-body p-2">
