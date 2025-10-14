@@ -20,9 +20,7 @@ export default function NavBar({title, icons}: PropType) {
       try {
         let response; 
           response = await axios.get(`https://${projectName}.tsdsolution.net/api/DriverController/setting`);
-
-        const data = response.data;
-        
+        const data = response.data;  
         // Set metadata state with fetched data
         setMetadata({ title: data.site_name, icons: data.logo });
       } catch (error) {
@@ -43,17 +41,17 @@ export default function NavBar({title, icons}: PropType) {
   return (
     <nav className='bg-white px-3 flex flex-row h-[50px] justify-between items-center z-10 max-w-[575px] w-full '>
       {/* Logo and Title Section */}
-      <div className='flex flex-row items-center space-x-2 cursor-pointer' onClick={handleBackClick}>
-      <Logo image={ `https://${projectName}.tsdsolution.net/assets/uploads/logos/${metadata?.icons}` }/>
+      <div className='flex flex-row items-center space-x-3 cursor-pointer' onClick={handleBackClick}>
+        <Logo className="h-16 w-16" image={ `https://${projectName}.tsdsolution.net/assets/uploads/logos/${metadata?.icons}` }/>
         <div>
-          <p className='font-dmsans font-bold w-30 font-akbalthom-moul-4 text-xl max-[600px]:text-sm max-[450px]:text-[14px]'>{metadata?.title}</p>
+          <p className='font-dmsans font-extrabold w-30 font-akbalthom-moul-4 text-2xl max-[600px]:text-[18px] max-[450px]:text-[16px]'>{metadata?.title}</p>
         </div>
       </div>
      <Link href="https://t.me/thebrickkh">
           <svg
             width="40"
             height="39"
-            viewBox="0 0 40 39"
+            viewBox="0 0 35 35"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >

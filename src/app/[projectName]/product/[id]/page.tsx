@@ -18,19 +18,21 @@ export default function ProductDetail({ params }: PageProps) {
   const [cartItem, setCartItem] = useState<Menu | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
+  
+  
   useEffect(() => {
   const fetchProduct = async () => {
       try {
         const response = await axios.get(
-        `https://${projectName}.tsdsolution.net/api/DriverController/GetAllProductWithCat`
+          `https://${projectName}.tsdsolution.net/api/DriverController/GetAllProductWithCat`
+          // `https://${projectName}.tsdsolution.net/api/DriverController/getproductsdetails?id=` + id
       );
     // API may return an object or an array. Normalize to array of categories.
     const data = response?.data;
     const categories = Array.isArray(data) ? data : data && typeof data === 'object' && data.categories ? data.categories : [];
     const allItems: Menu[] = categories.flatMap((cat: any) => cat.items || []);
-        const found = allItems.find((item) => item.id.toString() === id);
-
+    const found = allItems.find((item) => item.id.toString() === id);
+        console.log(data);
         if (!found) {
           setError("Product not found");
         } else {

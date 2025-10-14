@@ -42,7 +42,7 @@ export default function ProductPage({ cartItem, cur }: PropType) {
   const saveProduct = localStorage.getItem("setCategory");
   if(saveProduct){
     const productData = saveProduct; 
-    console.log(productData);
+    
     if (isNaN(Number(productData))) {
       router.push(`/${projectName}/staticcategory/${productData}`);
     } else {
@@ -55,6 +55,8 @@ export default function ProductPage({ cartItem, cur }: PropType) {
 };
 
 const getButtonProps = () => {
+
+  console.log("Products status = " + status);
     if (status === 'transit') {
       return {
         text: 'Coming Soon',

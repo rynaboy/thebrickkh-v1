@@ -65,6 +65,9 @@ const ImageSlider = ({ images, fallbackImagePath,cartItem }: PropsType) => {
 
   // If no images at all, still show the fallback image if available
   if (imagesToDisplay.length === 0 && cartItem?.imagePath) {
+    console.log(imagesToDisplay);
+    console.log(cartItem?.imagePath);
+    
     // Render single fallback image without slider functionality
     return (
       <div className="relative w-full">
@@ -164,6 +167,7 @@ const ImageSlider = ({ images, fallbackImagePath,cartItem }: PropsType) => {
       >
         {imagesToDisplay.slice(0, 15).map((image, index) => {
           console.log("Image URL:", `${imgUrl}${image}`);
+          console.log(image);
           return (
             <SwiperSlide key={index} className="w-full bg-white h-[350px]">
               <Image

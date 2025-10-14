@@ -58,7 +58,6 @@ export default function Cart({ cartItem, cur }: PropType) {
         className="w-full rounded-xl overflow-hidden p-2 cursor-pointer flex justify-center"
         onClick={handleClick}
       >
-        {/* Stock badge: show In Stock when quantity > 0, otherwise Out of Stock */}
         {
           (() => {
             const inStock = parseFloat(quantity) > 0;
