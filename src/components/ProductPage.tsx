@@ -57,14 +57,8 @@ export default function ProductPage({ cartItem, cur }: PropType) {
 const getButtonProps = () => {
 
   console.log("Products status = " + status);
-    if (status === 'transit') {
-      return {
-        text: 'Coming Soon',
-        bgColor: 'bg-[#F7E3AE]',
-        borderColor: 'border-[#F7E3AE]',
-        textColor: 'text-[#000000]'
-      };
-    }
+  console.log("Products status = " + quantity);
+    
 
     const qty = parseFloat(quantity as any);
     // if (!isNaN(qty)) {
@@ -73,6 +67,13 @@ const getButtonProps = () => {
           text: 'In Stock',
           bgColor: 'bg-[#fec10b]',
           borderColor: 'border-yellow-400',
+          textColor: 'text-[#000000]'
+        };
+      } else if (status === 'transit') {
+        return {
+          text: 'Coming Soon',
+          bgColor: 'bg-[#F7E3AE]',
+          borderColor: 'border-[#F7E3AE]',
           textColor: 'text-[#000000]'
         };
       }
