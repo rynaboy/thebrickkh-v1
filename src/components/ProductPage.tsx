@@ -69,7 +69,7 @@ const getButtonProps = () => {
           borderColor: 'border-yellow-400',
           textColor: 'text-[#000000]'
         };
-      } else if (status != 'received') {
+      } else if (status != 'received' && status != 'draft') {
         return {
           text: 'Coming Soon',
           bgColor: 'bg-[#F7E3AE]',
