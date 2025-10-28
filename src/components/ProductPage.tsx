@@ -76,15 +76,17 @@ const getButtonProps = () => {
           borderColor: 'border-[#F7E3AE]',
           textColor: 'text-[#000000]'
         };
+      }else{
+        return {
+          text: 'Out of Stock',
+          bgColor: 'bg-gray-300',
+          borderColor: 'border-gray-300',
+          textColor: 'text-gray-700'
+        };
       }
 
       // qty === 0
-      return {
-        text: 'Out of Stock',
-        bgColor: 'bg-gray-300',
-        borderColor: 'border-gray-300',
-        textColor: 'text-gray-700'
-      };
+      
     // }
 
     // quantity invalid or null -> Pre-order
