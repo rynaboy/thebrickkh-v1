@@ -55,9 +55,9 @@ export default function ProductPage({ cartItem, cur }: PropType) {
 };
 
 const getButtonProps = () => {    
-
+  console.log("get status "+status);
+  
     const qty = parseFloat(quantity as any);
-    // if (!isNaN(qty)) {
       if (qty > 0) {
         return {
           text: 'In Stock',
@@ -80,10 +80,6 @@ const getButtonProps = () => {
           textColor: 'text-gray-700'
         };
       }
-
-      // qty === 0
-      
-    // }
 
     // quantity invalid or null -> Pre-order
     // return {
