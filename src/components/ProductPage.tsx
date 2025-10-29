@@ -54,11 +54,7 @@ export default function ProductPage({ cartItem, cur }: PropType) {
   }
 };
 
-const getButtonProps = () => {
-
-  console.log("Products status = " + status);
-  console.log("Products status = " + quantity);
-    
+const getButtonProps = () => {    
 
     const qty = parseFloat(quantity as any);
     // if (!isNaN(qty)) {
@@ -69,7 +65,7 @@ const getButtonProps = () => {
           borderColor: 'border-yellow-400',
           textColor: 'text-[#000000]'
         };
-      } else if (status != 'received' && status != 'draft') {
+      } else if (qty == 0 && status != 'received' && status != 'draft') {
         return {
           text: 'Coming Soon',
           bgColor: 'bg-[#F7E3AE]',
