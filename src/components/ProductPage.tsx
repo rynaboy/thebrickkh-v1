@@ -166,6 +166,15 @@ const getButtonProps = () => {
                     }
 
                     // qty === 0
+                    // If status indicates it's not received (or not yet available), show "Coming Soon".
+                    if (status !== 'received') {
+                      return (
+                        <span className="absolute top-3 left-3 bg-[#F7E3AE] text-[#000000] font-dmsans text-[14px] px-2 py-1 rounded-full shadow-sm z-10">
+                          Coming Soon
+                        </span>
+                      );
+                    }
+
                     return (
                       <span className="absolute top-3 left-3 bg-gray-300 text-gray-700 font-dmsans text-[14px] px-2 py-1 rounded-full shadow-sm z-10">
                         Out of Stock

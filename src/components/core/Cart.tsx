@@ -24,6 +24,7 @@ export default function Cart({ cartItem, cur }: PropType) {
     quantity,
     pieces,
     age,
+    status,
   } = cartItem;
   const real_price = numeral(promo_price ?? 0).format("0.00");
   const actual_price = numeral(price ?? 0).format("0.00");
@@ -60,17 +61,25 @@ export default function Cart({ cartItem, cur }: PropType) {
       >
         {
           (() => {
-            const inStock = parseFloat(quantity) > 0;
+            const qty = parseFloat(quantity as any);
+            const inStock = !isNaN(qty) && qty > 0;
+            const isZeroQty = !isNaN(qty) && qty === 0;
+            const comingSoon = isZeroQty && status !== 'received';
+
+            const bgClass = inStock
+              ? 'bg-[#fec10b] text-[#343433]'
+              : comingSoon
+              ? 'bg-[#F7E3AE] text-[#000000]'
+              : 'bg-gray-300 text-gray-700';
+
+            const label = inStock ? 'In Stock' : comingSoon ? 'Coming Soon' : 'Out of Stock';
+
             return (
               <span
-                className={`absolute top-3 right-3 font-dmsans text-[11px] px-2 py-1 rounded-full shadow-sm z-10 ${
-                  inStock
-                    ? "bg-[#fec10b] text-[#343433]"
-                    : "bg-gray-300 text-gray-700"
-                }`}
+                className={`absolute top-3 right-3 font-dmsans text-[11px] px-2 py-1 rounded-full shadow-sm z-10 ${bgClass}`}
                 aria-live="polite"
               >
-                {inStock ? "In Stock" : "Out of Stock"}
+                {label}
               </span>
             );
           })()
