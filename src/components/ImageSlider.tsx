@@ -24,38 +24,49 @@ const ImageSlider = ({ images, fallbackImagePath,cartItem }: PropsType) => {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
 
-  // 🔁 Filter + Sort product images like "XXXX_1.webp", "XXXX_2.webp"...
+  // 🔁 Filter + Sort product images like "XXXX-1.webp", "XXXX_2.webp", "XXXX-3.webp"...
   const getSortedProductImages = (images: string[]) => {
     if (!images || images.length === 0) return [];
 
-    // Filter out empty arrays and non-string values
-    const validImages = images.filter((img) => 
-      typeof img === 'string' && 
-      img.trim() !== '' && 
-      !Array.isArray(img)
-    );
-
+    // Filter out empty values and non-string values
+    const validImages = images.filter((img) => typeof img === "string" && img.trim() !== "" && !Array.isArray(img));
     if (validImages.length === 0) return [];
 
-    // Check if images follow the pattern "XXXX_1.webp", "XXXX_2.webp"
-    const sequentialImages = validImages.filter((img) => /_\d+\.(webp|png|jpg|jpeg)$/i.test(img));
-    
+    // Match filenames that end with -<number> or _<number> before the extension
+    const seqPattern = /[-_]\d+\.(webp|png|jpg|jpeg)$/i;
+    const sequentialImages = validImages.filter((img) => seqPattern.test(img));
+
     if (sequentialImages.length > 0) {
-      // Dynamically extract the prefix from the first matching sequential image
-      const prefixMatch = sequentialImages[0].match(/^(.+?)_\d+\.(webp|png|jpg|jpeg)$/i);
+      // Exclude any 'main' variant (like 75419-main.webp)
+      const seqNoMain = sequentialImages.filter((img) => !/[-_]main\.(webp|png|jpg|jpeg)$/i.test(img));
+
+      // Extract prefix (everything before the -<number> or _<number>) from first valid sequential file
+      const prefixMatch = seqNoMain[0]?.match(/^(.+?)[-_]\d+\.(webp|png|jpg|jpeg)$/i);
       const prefix = prefixMatch ? prefixMatch[1] : "";
 
-      return sequentialImages
-        .filter((img) => img.startsWith(prefix + "_"))
-        .sort((a, b) => {
-          const numA = parseInt(a.match(/_(\d+)\.(webp|png|jpg|jpeg)$/i)?.[1] || "0", 10);
-          const numB = parseInt(b.match(/_(\d+)\.(webp|png|jpg|jpeg)$/i)?.[1] || "0", 10);
-          return numA - numB;
-        });
+      // Escape prefix for use in regex
+      const escapeRegExp = (s: string) => s.replace(/[-\\/\\^$*+?.()|[\]{}]/g, "\\$&");
+      const prefixRe = prefix ? new RegExp(`^${escapeRegExp(prefix)}[-_]\\d+\\.(webp|png|jpg|jpeg)$`, "i") : null;
+
+      // Keep only files that match the same prefix and numeric suffix; then sort by numeric suffix
+      const filtered = seqNoMain
+        .filter((img) => (prefixRe ? prefixRe.test(img) : true))
+        .filter(Boolean);
+
+      const unique = Array.from(new Set(filtered));
+
+      unique.sort((a, b) => {
+        const numA = parseInt(a.match(/[-_](\d+)\.(webp|png|jpg|jpeg)$/i)?.[1] || "0", 10);
+        const numB = parseInt(b.match(/[-_](\d+)\.(webp|png|jpg|jpeg)$/i)?.[1] || "0", 10);
+        return numA - numB;
+      });
+
+      return unique;
     }
 
-    // If no sequential images, return all valid images (like "88888.png")
-    return validImages;
+    // If no sequential images, return all valid images (like "88888.png") but remove 'main' duplicates
+    const withoutMain = validImages.filter((img) => !/[-_]main\.(webp|png|jpg|jpeg)$/i.test(img));
+    return Array.from(new Set(withoutMain.length ? withoutMain : validImages));
   };
 
   const orderedImages = getSortedProductImages(images);

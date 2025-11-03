@@ -65,14 +65,7 @@ const getButtonProps = () => {
           borderColor: 'border-yellow-400',
           textColor: 'text-[#000000]'
         };
-      } else if (qty == 0 && status != 'received' && status != 'draft') {
-        return {
-          text: 'Coming Soon',
-          bgColor: 'bg-[#F7E3AE]',
-          borderColor: 'border-[#F7E3AE]',
-          textColor: 'text-[#000000]'
-        };
-      }else{
+      } else {
         return {
           text: 'Out of Stock',
           bgColor: 'bg-gray-300',
@@ -155,21 +148,11 @@ const getButtonProps = () => {
                           In Stock
                         </span>
                       );
-                    }
-                    // If status indicates it's not received (or not yet available), show "Coming Soon".
-                    if (qty > 0 && status !== 'received' && status !== 'draft') {
+                    }else{
                       return (
-                        <span className="absolute top-3 left-3 bg-[#F7E3AE] text-[#000000] font-dmsans text-[14px] px-2 py-1 rounded-full shadow-sm z-10">
-                          Coming Soon
-                        </span>
+                        ""
                       );
                     }
-
-                    return (
-                      <span className="absolute top-3 left-3 bg-gray-300 text-gray-700 font-dmsans text-[14px] px-2 py-1 rounded-full shadow-sm z-10">
-                        Out of Stock
-                      </span>
-                    );
                   }
 
                   // quantity invalid or null -> Pre-order
