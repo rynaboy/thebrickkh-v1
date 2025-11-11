@@ -18,8 +18,8 @@ const STATIC_CATEGORIES = [
   { label: "Coming Soon", tag: "Coming Soon" },
   { label: "Under $25", tag: "Under $25" },
   { label: "For Adults", tag: "For Adults" },
-  { label: "For Boys", tag: "For Boys" },
-  { label: "For Girls", tag: "For Girls" },
+  // { label: "For Boys", tag: "For Boys" },
+  // { label: "For Girls", tag: "For Girls" },
   { label: "Age under 10", tag: "Age under 10" },
 ] as const;
 

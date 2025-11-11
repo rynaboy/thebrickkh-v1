@@ -351,8 +351,8 @@ export default function Home() {
     "Coming Soon",
     "Under $25",
     "For Adults",
-    "For Boys",
-    "For Girls",
+    // "For Boys",
+    // "For Girls",
     "Age under 10",
   ];
 
