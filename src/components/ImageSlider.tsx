@@ -1,7 +1,7 @@
 // components/ImageSlider.tsx
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useMemo, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import "swiper/css";
@@ -23,6 +23,7 @@ const ImageSlider = ({ images, fallbackImagePath,cartItem }: PropsType) => {
 
   const prevRef = useRef(null);
   const nextRef = useRef(null);
+  const swiperRef = useRef<any>(null);
 
   // 🔁 Filter + Sort product images like "XXXX-1.webp", "XXXX_2.webp", "XXXX-3.webp"...
   const getSortedProductImages = (images: string[]) => {
@@ -32,54 +33,153 @@ const ImageSlider = ({ images, fallbackImagePath,cartItem }: PropsType) => {
     const validImages = images.filter((img) => typeof img === "string" && img.trim() !== "" && !Array.isArray(img));
     if (validImages.length === 0) return [];
 
-    // Match filenames that end with -<number> or _<number> before the extension
-    const seqPattern = /[-_]\d+\.(webp|png|jpg|jpeg)$/i;
-    const sequentialImages = validImages.filter((img) => seqPattern.test(img));
+    // Patterns
+    const mainPattern = /[-_]main\.(webp|png|jpg|jpeg)$/i;
+    const underscorePattern = /_\d+\.(webp|png|jpg|jpeg)$/i;
+    const dashNumberPattern = /-\d+\.(webp|png|jpg|jpeg)$/i;
 
-    if (sequentialImages.length > 0) {
-      // Exclude any 'main' variant (like 75419-main.webp)
-      const seqNoMain = sequentialImages.filter((img) => !/[-_]main\.(webp|png|jpg|jpeg)$/i.test(img));
+    // Separate images by pattern type
+    const underscoreImages: string[] = [];
+    const dashNumberImages: string[] = [];
+    const mainImages: string[] = [];
+    const otherImages: string[] = [];
 
-      // Extract prefix (everything before the -<number> or _<number>) from first valid sequential file
-      const prefixMatch = seqNoMain[0]?.match(/^(.+?)[-_]\d+\.(webp|png|jpg|jpeg)$/i);
-      const prefix = prefixMatch ? prefixMatch[1] : "";
+    validImages.forEach((img) => {
+      if (mainPattern.test(img)) {
+        mainImages.push(img);
+      } else if (underscorePattern.test(img)) {
+        underscoreImages.push(img);
+      } else if (dashNumberPattern.test(img)) {
+        dashNumberImages.push(img);
+      } else {
+        otherImages.push(img);
+      }
+    });
 
-      // Escape prefix for use in regex
-      const escapeRegExp = (s: string) => s.replace(/[-\\/\\^$*+?.()|[\]{}]/g, "\\$&");
-      const prefixRe = prefix ? new RegExp(`^${escapeRegExp(prefix)}[-_]\\d+\\.(webp|png|jpg|jpeg)$`, "i") : null;
+    // Pattern 1: Images with underscore (e.g., "7567-1_1.webp", "7567-1_2.webp", "10313-1_9.webp")
+    if (underscoreImages.length > 0) {
+      // Group by prefix (everything before the underscore and number)
+      const prefixGroups: { [key: string]: string[] } = {};
+      
+      underscoreImages.forEach((img) => {
+        const match = img.match(/^(.+?)_\d+\.(webp|png|jpg|jpeg)$/i);
+        if (match) {
+          const prefix = match[1];
+          if (!prefixGroups[prefix]) {
+            prefixGroups[prefix] = [];
+          }
+          prefixGroups[prefix].push(img);
+        }
+      });
 
-      // Keep only files that match the same prefix and numeric suffix; then sort by numeric suffix
-      const filtered = seqNoMain
-        .filter((img) => (prefixRe ? prefixRe.test(img) : true))
-        .filter(Boolean);
+      // Find the largest group (most images with same prefix) - this handles the main product group
+      let largestGroup: string[] = [];
+      Object.keys(prefixGroups).forEach((prefix) => {
+        if (prefixGroups[prefix].length > largestGroup.length) {
+          largestGroup = prefixGroups[prefix];
+        }
+      });
 
-      const unique = Array.from(new Set(filtered));
-
-      unique.sort((a, b) => {
-        const numA = parseInt(a.match(/[-_](\d+)\.(webp|png|jpg|jpeg)$/i)?.[1] || "0", 10);
-        const numB = parseInt(b.match(/[-_](\d+)\.(webp|png|jpg|jpeg)$/i)?.[1] || "0", 10);
+      // Sort by number after underscore (numeric sort: 0, 1, 2, 3, ..., 9, 10, 11, 12, etc.)
+      largestGroup.sort((a, b) => {
+        const matchA = a.match(/_(\d+)\.(webp|png|jpg|jpeg)$/i);
+        const matchB = b.match(/_(\d+)\.(webp|png|jpg|jpeg)$/i);
+        const numA = matchA ? parseInt(matchA[1], 10) : 999999; // Put invalid matches at end
+        const numB = matchB ? parseInt(matchB[1], 10) : 999999; // Put invalid matches at end
         return numA - numB;
       });
 
-      return unique;
+      const result = Array.from(new Set(largestGroup));
+      // Include other images that don't match patterns
+      const finalResult = otherImages.length > 0 ? [...result, ...otherImages] : result;
+      console.log("=== Pattern 1 (underscore) Sorting ===");
+      console.log("Original underscore images:", underscoreImages);
+      console.log("Sorted pattern images:", result);
+      console.log("Other images:", otherImages);
+      console.log("Final result order:");
+      finalResult.forEach((img, idx) => {
+        console.log(`  ${idx + 1}. ${img}`);
+      });
+      return finalResult;
     }
 
-    // If no sequential images, return all valid images (like "88888.png") but remove 'main' duplicates
-    const withoutMain = validImages.filter((img) => !/[-_]main\.(webp|png|jpg|jpeg)$/i.test(img));
-    return Array.from(new Set(withoutMain.length ? withoutMain : validImages));
+    // Pattern 2: Images with dash-number pattern, possibly with main variant
+    if (dashNumberImages.length > 0 || mainImages.length > 0) {
+      // Group by prefix (everything before the dash and number/main)
+      const prefixGroups: { [key: string]: string[] } = {};
+      
+      [...mainImages, ...dashNumberImages].forEach((img) => {
+        const match = img.match(/^(.+?)[-_](main|\d+)\.(webp|png|jpg|jpeg)$/i);
+        if (match) {
+          const prefix = match[1];
+          if (!prefixGroups[prefix]) {
+            prefixGroups[prefix] = [];
+          }
+          prefixGroups[prefix].push(img);
+        }
+      });
+
+      // Find the largest group (most images with same prefix) - this handles the main product group
+      let largestGroup: string[] = [];
+      Object.keys(prefixGroups).forEach((prefix) => {
+        if (prefixGroups[prefix].length > largestGroup.length) {
+          largestGroup = prefixGroups[prefix];
+        }
+      });
+
+      // Sort: main first (if exists), then by number after dash (numeric sort: 0, 1, 2, 3, ..., 9, 10, 11, 12, etc.)
+      largestGroup.sort((a, b) => {
+        const isMainA = mainPattern.test(a);
+        const isMainB = mainPattern.test(b);
+        
+        // Main images come first (if main exists)
+        if (isMainA && !isMainB) return -1;
+        if (!isMainA && isMainB) return 1;
+        
+        // Both are main or both are not main - sort by number
+        const matchA = a.match(/-(\d+)\.(webp|png|jpg|jpeg)$/i);
+        const matchB = b.match(/-(\d+)\.(webp|png|jpg|jpeg)$/i);
+        const numA = matchA ? parseInt(matchA[1], 10) : 999999; // Put invalid matches at end
+        const numB = matchB ? parseInt(matchB[1], 10) : 999999; // Put invalid matches at end
+        return numA - numB;
+      });
+
+      const result = Array.from(new Set(largestGroup));
+      // Include other images that don't match patterns
+      const finalResult = otherImages.length > 0 ? [...result, ...otherImages] : result;
+      console.log("=== Pattern 2 (dash-number) Sorting ===");
+      console.log("Main images:", mainImages);
+      console.log("Dash-number images:", dashNumberImages);
+      console.log("Sorted pattern images:", result);
+      console.log("Other images:", otherImages);
+      console.log("Final result order:");
+      finalResult.forEach((img, idx) => {
+        console.log(`  ${idx + 1}. ${img}`);
+      });
+      return finalResult;
+    }
+
+    // If no sequential images, return all valid images
+    return Array.from(new Set(validImages));
   };
 
-  const orderedImages = getSortedProductImages(images);
-  
-  // Use fallback image from cartItem.imagePath if no ordered images are available
-  const imagesToDisplay = orderedImages.length > 0 ? orderedImages : (cartItem?.imagePath ? [cartItem.imagePath] : []);
+  // Memoize the sorted images to ensure stable ordering
+  const imagesToDisplay = useMemo(() => {
+    console.log("=== Starting Image Sort ===");
+    console.log("Input images array:", images);
+    const orderedImages = getSortedProductImages(images);
+    const result = orderedImages.length > 0 ? orderedImages : (cartItem?.imagePath ? [cartItem.imagePath] : []);
+    console.log("=== Final imagesToDisplay ===");
+    console.log("Total images:", result.length);
+    console.log("Images in display order:");
+    result.forEach((img, idx) => {
+      console.log(`  ${idx + 1}. ${img}`);
+    });
+    return result;
+  }, [images, cartItem?.imagePath]);
 
   // If no images at all, still show the fallback image if available
   if (imagesToDisplay.length === 0 && cartItem?.imagePath) {
-    console.log(imagesToDisplay);
-    console.log(cartItem?.imagePath);
-    
-    // Render single fallback image without slider functionality
     return (
       <div className="relative w-full">
         <div className="w-full rounded-xl overflow-hidden bg-white h-[350px]">
@@ -99,6 +199,20 @@ const ImageSlider = ({ images, fallbackImagePath,cartItem }: PropsType) => {
   if (imagesToDisplay.length === 0) {
     return null;
   }
+
+  // Effect to verify and update Swiper when images change
+  useEffect(() => {
+    if (swiperRef.current && imagesToDisplay.length > 0) {
+      console.log("=== useEffect: Updating Swiper ===");
+      console.log("Current active index:", swiperRef.current.activeIndex);
+      console.log("Images to display:", imagesToDisplay);
+      // Force Swiper to update and rebuild slides in correct order
+      swiperRef.current.update();
+      swiperRef.current.updateSlides();
+      swiperRef.current.slideTo(0, 0); // Go to first slide immediately
+      console.log("Swiper updated and moved to slide 0");
+    }
+  }, [imagesToDisplay]);
 
   return (
     <div className="relative w-full">
@@ -136,8 +250,29 @@ const ImageSlider = ({ images, fallbackImagePath,cartItem }: PropsType) => {
 
       {/* Swiper Carousel */}
       <Swiper
+        onSwiper={(swiper) => {
+          swiperRef.current = swiper;
+          console.log("=== Swiper Initialized ===");
+          console.log("Total slides:", swiper.slides.length);
+          console.log("Active slide index:", swiper.activeIndex);
+          console.log("Slide order check:");
+          swiper.slides.forEach((slide: any, idx: number) => {
+            const imgSrc = slide.querySelector('img')?.src || 'no image';
+            console.log(`  Slide ${idx}: ${imgSrc}`);
+          });
+          // Ensure Swiper starts at the first slide
+          setTimeout(() => {
+            swiper.slideTo(0, 0);
+            console.log("Swiper forced to slide 0");
+          }, 100);
+        }}
         spaceBetween={30}
-        centeredSlides={true}
+        centeredSlides={false}
+        initialSlide={0}
+        loop={false}
+        allowSlidePrev={imagesToDisplay.length > 1}
+        allowSlideNext={imagesToDisplay.length > 1}
+        key={`swiper-${imagesToDisplay.length}-${imagesToDisplay[0] || 'empty'}`}
         autoplay={
           imagesToDisplay.length > 1
             ? {
@@ -173,20 +308,46 @@ const ImageSlider = ({ images, fallbackImagePath,cartItem }: PropsType) => {
             swiper.params.navigation.nextEl = nextRef.current;
           }
         }}
+        onInit={(swiper) => {
+          // Ensure slides are in correct order after initialization
+          console.log("=== Swiper onInit ===");
+          console.log("Active index:", swiper.activeIndex);
+          swiper.update();
+          swiper.slideTo(0, 0);
+          console.log("Swiper updated and moved to slide 0");
+        }}
+        onUpdate={(swiper) => {
+          // Ensure we're on the first slide after update
+          console.log("=== Swiper onUpdate ===");
+          console.log("Active index:", swiper.activeIndex);
+          if (swiper.activeIndex !== 0) {
+            console.log("Active index is not 0, forcing to slide 0");
+            swiper.slideTo(0, 0);
+          }
+        }}
+        onSlideChange={(swiper) => {
+          console.log("=== Swiper Slide Changed ===");
+          console.log("Active index:", swiper.activeIndex);
+          console.log("Previous index:", swiper.previousIndex);
+          const currentSlide = swiper.slides[swiper.activeIndex];
+          const imgSrc = currentSlide?.querySelector('img')?.src || 'no image';
+          console.log("Current slide image:", imgSrc);
+        }}
         modules={[Autoplay, Pagination, Navigation]}
         className="mySwiper w-full rounded-xl overflow-hidden"
       >
-        {imagesToDisplay.slice(0, 15).map((image, index) => {
-          console.log("Image URL:", `${imgUrl}${image}`);
-          console.log(image);
+        {imagesToDisplay.map((image, index) => {
+          // Use index in key to ensure proper order, but make it unique
+          console.log(`Rendering slide ${index + 1}/${imagesToDisplay.length}: ${image}`);
           return (
-            <SwiperSlide key={index} className="w-full bg-white h-[350px]">
+            <SwiperSlide key={`${image}-${index}`} className="w-full bg-white h-[350px]" data-swiper-slide-index={index}>
               <Image
                 className="w-full h-full object-contain"
                 src={`${imgUrl}${image}`}
-                alt=""
+                alt={`Image ${index + 1}: ${image}`}
                 width={450}
                 height={350}
+                priority={index === 0}
               />
             </SwiperSlide>
           );
