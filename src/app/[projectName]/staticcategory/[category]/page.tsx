@@ -16,6 +16,10 @@ import { Provider } from "react-redux";
 import store from "@/lib/store";
 import { useParams } from "next/navigation";
 
+// Force dynamic rendering for this page (required for dynamic routes with API calls)
+export const dynamic = 'force-dynamic';
+export const dynamicParams = true;
+
 function StaticCategory() {
   const { projectName, category } = useParams();
   const [loading, setLoading] = useState(true);

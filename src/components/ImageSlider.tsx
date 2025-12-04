@@ -178,6 +178,21 @@ const ImageSlider = ({ images, fallbackImagePath,cartItem }: PropsType) => {
     return result;
   }, [images, cartItem?.imagePath]);
 
+  // Effect to verify and update Swiper when images change
+  // MUST be called before any early returns (Rules of Hooks)
+  useEffect(() => {
+    if (swiperRef.current && imagesToDisplay.length > 0) {
+      console.log("=== useEffect: Updating Swiper ===");
+      console.log("Current active index:", swiperRef.current.activeIndex);
+      console.log("Images to display:", imagesToDisplay);
+      // Force Swiper to update and rebuild slides in correct order
+      swiperRef.current.update();
+      swiperRef.current.updateSlides();
+      swiperRef.current.slideTo(0, 0); // Go to first slide immediately
+      console.log("Swiper updated and moved to slide 0");
+    }
+  }, [imagesToDisplay]);
+
   // If no images at all, still show the fallback image if available
   if (imagesToDisplay.length === 0 && cartItem?.imagePath) {
     return (
@@ -199,20 +214,6 @@ const ImageSlider = ({ images, fallbackImagePath,cartItem }: PropsType) => {
   if (imagesToDisplay.length === 0) {
     return null;
   }
-
-  // Effect to verify and update Swiper when images change
-  useEffect(() => {
-    if (swiperRef.current && imagesToDisplay.length > 0) {
-      console.log("=== useEffect: Updating Swiper ===");
-      console.log("Current active index:", swiperRef.current.activeIndex);
-      console.log("Images to display:", imagesToDisplay);
-      // Force Swiper to update and rebuild slides in correct order
-      swiperRef.current.update();
-      swiperRef.current.updateSlides();
-      swiperRef.current.slideTo(0, 0); // Go to first slide immediately
-      console.log("Swiper updated and moved to slide 0");
-    }
-  }, [imagesToDisplay]);
 
   return (
     <div className="relative w-full">

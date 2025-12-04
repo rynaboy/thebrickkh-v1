@@ -31,6 +31,11 @@
   }>) {
     return (
       <html lang="en" className="scroll-smooth">
+        <head>
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+          <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet" />
+        </head>
         <body className="m-auto max-w-[575px]">
           <div className=" h-screen bg-gray-100  overflow-auto max-w-[575px] w-full ">
           <LanguageProvider>
