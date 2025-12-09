@@ -136,10 +136,10 @@ export default function Cart({ cartItem, cur }: PropType) {
           </svg>
           <span className="font-bold text-[13px] font-battambong text-[#000000]">{pieces}</span>
         </span>
-        <span className="font-battambong font-bold text-[#000000] text-[13px]">
+        {/* <span className="font-battambong font-bold text-[#000000] text-[13px]">
           ${cur}
           {promo_price ? real_price : actual_price}
-        </span>
+        </span> */}
         <span className="font-dmsans hidden">{age}</span>
       </div>
     </div>

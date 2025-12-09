@@ -240,10 +240,10 @@ const getButtonProps = () => {
                   <h2 className="text-[22px] font-bold font-battambong text-[#000000]">{age}</h2>
                 </div>
               </div>
-              <h1 className="text-[28px] font-bold text-[#000000] font-dmsans text-center">
+              {/* <h1 className="text-[28px] font-bold text-[#000000] font-dmsans text-center">
                 {cur}
                 {promo_price ? real_price : actual_price}
-              </h1>
+              </h1> */}
             </div>
             <div className="card-footer flex justify-between items-center px-2 text-[13px] text-gray-700">
             <button
