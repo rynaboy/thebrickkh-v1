@@ -211,7 +211,9 @@ export default function SearchBar({
     // Cache results (limit cache size to prevent memory issues)
     if (searchCacheRef.current.size > 50) {
       const firstKey = searchCacheRef.current.keys().next().value;
-      searchCacheRef.current.delete(firstKey);
+      if (firstKey !== undefined) {
+        searchCacheRef.current.delete(firstKey);
+      }
     }
     searchCacheRef.current.set(trimmedQuery, finalResults);
 

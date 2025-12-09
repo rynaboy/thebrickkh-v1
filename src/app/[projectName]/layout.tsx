@@ -1,10 +1,17 @@
   import type { Metadata } from "next";
+  import { DM_Sans } from "next/font/google";
 
   import "../globals.css"
   import { NavBar } from "@/components/core";
   import { LanguageProvider } from '@/components/context/LanguageContext';
   import '../../../public/fonts/style.css';
   import axios from "axios";
+
+  const dmSans = DM_Sans({
+    subsets: ["latin"],
+    variable: "--font-dm-sans",
+    display: "swap",
+  });
 
 
   export async function generateMetadata({ params }: { params: { projectName: string } }): Promise<Metadata> {
@@ -30,13 +37,8 @@
     children: React.ReactNode;
   }>) {
     return (
-      <html lang="en" className="scroll-smooth">
-        <head>
-          <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-          <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet" />
-        </head>
-        <body className="m-auto max-w-[575px]">
+      <html lang="en" className={`scroll-smooth ${dmSans.variable}`}>
+        <body className="m-auto max-w-[575px] font-sans">
           <div className=" h-screen bg-gray-100  overflow-auto max-w-[575px] w-full ">
           <LanguageProvider>
           {children}
