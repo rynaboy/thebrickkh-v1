@@ -13,8 +13,8 @@ const sortOptions = [
   "Piece count: Low to High",
   "Piece count: High to Low",
   "Newest",
-  "Price: Low to High",
-  "Price: High to Low"
+  // "Price: Low to High",
+  // "Price: High to Low"
 ];
 
 export default function SortBar({
