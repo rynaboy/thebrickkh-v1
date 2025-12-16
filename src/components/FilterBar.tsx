@@ -76,8 +76,8 @@ useEffect(() => {
     <div className="relative">
      <button
           onClick={onToggle}
-          className={`w-full items-center px-4 py-1 max-[370px]:text-[13px] max-[320px]:text-[10px] text-[13px] rounded-full border-2 focus:outline-none font-dmsans ${
-            isOpen ? 'text-white bg-[#343433] border-[#343433]' : 'text-[#343433] border-black'
+          className={`w-full items-center px-4 py-1 max-[370px]:text-[13px] max-[320px]:text-[10px] text-[13px] rounded-full border-2 focus:outline-none font-dmsans border-amber-500 ${
+            isOpen ? 'text-white bg-[#343433]' : 'text-[#343433]'
           }`}
       >
       Fliters

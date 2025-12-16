@@ -61,8 +61,8 @@ const getButtonProps = () => {
       if (qty > 0) {
         return {
           text: 'In Stock',
-          bgColor: 'bg-[#fec10b]',
-          borderColor: 'border-yellow-400',
+          bgColor: 'bg-[#f9a41a]',
+          borderColor: 'border-amber-500',
           textColor: 'text-[#000000]'
         };
       } else {
@@ -144,7 +144,7 @@ const getButtonProps = () => {
                   if (!isNaN(qty)) {
                     if (qty > 0) {
                       return (
-                        <span className="absolute top-3 left-3 bg-[#fec10b] text-[#343433] font-dmsans text-[14px] px-2 py-1 rounded-full shadow-sm z-10">
+                        <span className="absolute top-3 left-3 bg-[#f9a41a] text-[#343433] font-dmsans text-[14px] px-2 py-1 rounded-full shadow-sm z-10">
                           In Stock
                         </span>
                       );

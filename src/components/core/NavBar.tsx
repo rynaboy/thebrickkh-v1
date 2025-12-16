@@ -21,8 +21,11 @@ export default function NavBar({title, icons}: PropType) {
         let response; 
           response = await axios.get(`https://${projectName}.tsdsolution.net/api/DriverController/setting`);
         const data = response.data;  
-        // Set metadata state with fetched data
-        setMetadata({ title: data.site_name, icons: data.logo });
+        // Set metadata state with fetched data, handle undefined logo
+        setMetadata({ 
+          title: data.site_name || 'THE BRICKKH', 
+          icons: data.logo || '/logo53.png' 
+        });
       } catch (error) {
         console.error('Error fetching metadata:', error);
         // Handle error fetching metadata
@@ -38,11 +41,15 @@ export default function NavBar({title, icons}: PropType) {
      localStorage.removeItem("setCategory");
   };
 
+  const logoUrl = metadata?.icons 
+    ? `https://${projectName}.tsdsolution.net/assets/uploads/logos/${metadata.icons}`
+    : '/images/placeholder-logo.png';
+
   return (
     <nav className='bg-white px-3 flex flex-row h-[50px] justify-between items-center z-10 max-w-[575px] w-full '>
       {/* Logo and Title Section */}
       <div className='flex flex-row items-center space-x-3 cursor-pointer' onClick={handleBackClick}>
-        <Logo className="h-16 w-16" image={ `https://${projectName}.tsdsolution.net/assets/uploads/logos/${metadata?.icons}` }/>
+        <Logo className="h-16 w-16" image={logoUrl}/>
         <div>
           <p className='font-dmsans font-extrabold w-30 font-akbalthom-moul-4 text-2xl max-[600px]:text-[18px] max-[450px]:text-[16px]'>{metadata?.title}</p>
         </div>

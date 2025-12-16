@@ -523,7 +523,7 @@ export default function Home() {
                                   filteredCategory.category
                                 )
                               }
-                              className="font-dmsans text-sm px-4 text-[13px] py-1 border border-yellow-400 bg-[#fec10b] rounded-full"
+                              className="font-dmsans text-sm px-4 text-[13px] py-1 border border-amber-500 bg-[#f9a41a] rounded-full"
                             >
                               {expandedCategories[filteredCategory.category]
                                 ? "See Less"

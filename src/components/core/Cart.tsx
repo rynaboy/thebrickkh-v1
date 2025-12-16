@@ -67,7 +67,7 @@ export default function Cart({ cartItem, cur }: PropType) {
             const comingSoon = isZeroQty && status !== 'received';
 
             const bgClass = inStock
-              ? 'bg-[#fec10b] text-[#343433]' 
+              ? 'bg-[#f9a41a] text-[#343433]' 
               : '';
 
             const label = inStock ? 'In Stock' : '';

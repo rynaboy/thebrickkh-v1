@@ -18,9 +18,12 @@
     try {
       const response = await axios.get(`https://${params.projectName}.tsdsolution.net/api/DriverController/setting`);
       const data = response.data;
+      const logoUrl = data.logo 
+        ? `https://${params.projectName}.tsdsolution.net/assets/uploads/logos/${data.logo}`
+        : "/default-icon.png";
       return {
-        title: data.site_name,
-        icons: `https://${params.projectName}.tsdsolution.net/assets/uploads/logos/${data.logo}`
+        title: data.site_name || "Default Title",
+        icons: logoUrl
       };
     } catch (error) {
       console.error("Error fetching metadata:", error);
