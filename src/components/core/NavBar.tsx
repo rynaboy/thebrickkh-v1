@@ -43,7 +43,7 @@ export default function NavBar({title, icons}: PropType) {
 
   const logoUrl = metadata?.icons 
     ? `https://${projectName}.tsdsolution.net/assets/uploads/logos/${metadata.icons}`
-    : '/images/placeholder-logo.png';
+    : 'https://thebrickkh.tsdsolution.net/assets/uploads/logos/logo53.png';
 
   return (
     <nav className='bg-white px-3 flex flex-row h-[50px] justify-between items-center z-10 max-w-[575px] w-full '>
